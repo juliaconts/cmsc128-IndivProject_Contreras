@@ -1,0 +1,70 @@
+.header {
+    display: flex;
+}
+
+h1 {
+    margin-left: 2.5%;
+    margin-bottom: 1%;
+    font-size: 45px;
+}
+
+#sorting {
+    height: 29px;
+    width: 115px;
+    margin-top: 3.2%;
+    /* margin-left: 1%; */
+    margin-left: 35.5%;
+}
+
+#add-task {
+    margin-top: 3%;
+    margin-left: 0.5%;
+    /* margin-left: 35.5%; */
+    display: inline-flex;          /* flexbox for icon + text */
+    align-items: center;           /* vertical centering */
+    gap: 6px;                      /* space between + and text */
+    height: 36px;                  /* adjust to your design */
+    padding: 0 12px;               /* horizontal padding */
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#add-task .material-symbols-outlined {
+    font-size: 20px;
+    line-height: 1;
+}
+
+
+.main-interface {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 0%;
+    gap: 35px;
+}
+
+#task-box {
+    box-sizing: border-box;
+    border: 1px solid black;
+    width: 1000px;
+    height: 600px;
+}
+
+#task-view-box {
+    background-color: black;
+    box-sizing: border-box;
+    border: 1px solid black;
+    width: 400px;
+    height: 650px;
+    position: static;
+    margin-top: -51.5px;
+    
+}
+
+#task-view-box h1 {
+    color: white;
+}
