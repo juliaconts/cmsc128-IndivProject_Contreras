@@ -28,9 +28,28 @@
                 {% if tasks %}
                     <ul>
                     {% for task in tasks %}
-                        <li>
-                            <strong>{{ task[3] }}</strong>
-                            (Priority: {{ task[1] }})
+                        <li class="task 
+                            {% if task[1] == 1 %}high{% elif task[1] == 2 %}medium{% else %}low{% endif %}">
+
+                            <div class="priority-symbol">
+                                {% if task[1] == 1 %}
+                                <span>❗</span>
+                                {% elif task[1] == 2 %}
+                                <span>💡</span>
+                                {% else %}
+                                <span>📝</span>
+                                {% endif %}
+                            </div>
+                            <div class="task-label"><strong>{{ task[2] }}</strong></div>
+                            <span class="line">|</span>
+
+                            <div class="task-info">
+                                <div class="task-details">
+                                    <span class="task-desc">{{ task[3] }} </span><br>
+                                    <span class="due-date">{{ task[4] | format_date }} | {{ task[5] | format_time }}</span>
+                                </div>
+                            </div>
+                            <input type="checkbox" class="task-check">
                         </li>
                     {% endfor %}
                     </ul>
@@ -44,6 +63,7 @@
             </div>
 
             <div id="task-view-box">
+
                 <div id="empty-view" class="empty-view">
                     <span class="material-symbols-outlined">gesture_select</span>
                     <p>No task selected</p>

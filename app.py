@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
+from datetime import datetime
 import sqlite3
 
 app = Flask(__name__)
@@ -17,7 +18,8 @@ def init_db():
             date TEXT,
             time TEXT,
             task_desc TEXT,
-            sub_todo TEXT
+            sub_todo TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     ''')
     conn.commit()
@@ -61,6 +63,21 @@ def add():
 
     add_task(priority, label, task_name, date, time, task_desc, sub_todo)
     return redirect(url_for("homepage"))
+
+@app.template_filter("format_date")
+def format_date(value, format="%B %d, %Y"):
+    try:
+        date_obj = datetime.strptime(value, "%Y-%m-%d")
+        return date_obj.strftime(format)
+    except Exception:
+        return value
+
+@app.template_filter("format_time")   
+def format_time(value, format="%I:%M %p"):
+    try:
+        return datetime.strptime(value, "%H:%M").strftime(format)
+    except Exception:
+        return value
 
 if __name__ == "__main__":
     init_db()

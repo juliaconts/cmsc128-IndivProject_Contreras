@@ -52,12 +52,12 @@ h1 {
     gap: 35px;
 }
 
-#task-box {
+/* #task-box {
     box-sizing: border-box;
     border: 1px solid black;
     width: 1000px;
     height: 600px;
-}
+} */
 
 .empty-prompt {
     display: flex;
@@ -117,4 +117,84 @@ h1 {
     box-shadow: 0 0 0 1080px rgba(0, 0, 0, .3);
     background-color: #f8f8f8;                /* slightly lighter background */
     transition: all 0.2s ease-in-out;        /* smooth transition */
+}
+
+ul {
+    padding-left: 20px;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid black;
+    width: 948px;
+    list-style-type: none;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.priority-symbol {
+    font-size: 30px;
+}
+
+.task-label {
+    font-size: 1.4rem;
+}
+
+/* Priority symbol + task label in one row */
+.priority-symbol,
+.task-label {
+    display: flex;
+    align-items: center;
+    /* font-size: 20px; */
+    /* font-size: 1.2rem; */
+    margin-right: 5px;
+}
+
+.line {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 35px;
+}
+
+/* Priority-specific left border colors */
+li.high {
+    border-left: 6px solid #e74c3c; /* red */
+}
+li.medium {
+    border-left: 6px solid #f39c12; /* orange */
+}
+li.low {
+    border-left: 6px solid #535d66; /* green */
+}
+
+/* border-left: 6px solid ; */
+
+/* Task text area */
+.task-info {
+    flex: 1;
+    margin-left: 8px;
+}
+
+.task-desc {
+    font-weight: bold;
+    color: #555;
+    font-size: 20px;
+}
+
+.due-date {
+    font-size: 0.9rem;
+    color: red;
+}
+
+/* Checkbox */
+.task-check {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    accent-color: #2ecc71;
 }
