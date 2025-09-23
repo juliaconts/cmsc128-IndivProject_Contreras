@@ -9,17 +9,16 @@ h1 {
 }
 
 #sorting {
-    height: 29px;
+    height: 36px;
     width: 115px;
-    margin-top: 3.2%;
-    /* margin-left: 1%; */
-    margin-left: 35.5%;
+    margin-top: 3%;
+    margin-left: 36%;
+    cursor: pointer;
 }
 
 #add-task {
     margin-top: 3%;
     margin-left: 0.5%;
-    /* margin-left: 35.5%; */
     display: inline-flex;          /* flexbox for icon + text */
     align-items: center;           /* vertical centering */
     gap: 6px;                      /* space between + and text */
@@ -38,6 +37,12 @@ h1 {
     line-height: 1;
 }
 
+#add-task:hover {
+    transform: scale(1.1);
+    opacity: 0.5;
+    color: white;
+    cursor: pointer; 
+}
 
 .main-interface {
     display: flex;
@@ -54,17 +59,62 @@ h1 {
     height: 600px;
 }
 
+.empty-prompt {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.empty-prompt p {
+    margin: 0px;
+}
+
+.empty-prompt .material-symbols-outlined {
+    font-size: 100px;
+    opacity: 0.6;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0px;
+}
+
 #task-view-box {
-    background-color: black;
+    background-color: lightgray;
     box-sizing: border-box;
     border: 1px solid black;
     width: 400px;
     height: 650px;
     position: static;
     margin-top: -51.5px;
-    
 }
 
-#task-view-box h1 {
-    color: white;
+.empty-view {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.empty-view .material-symbols-outlined{
+    font-size: 60px;
+    opacity: 0.6;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0px;
+}
+
+.empty-view p {
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+.dim {
+    box-shadow: 0 0 0 1080px rgba(0, 0, 0, .3);
+    background-color: #f8f8f8;                /* slightly lighter background */
+    transition: all 0.2s ease-in-out;        /* smooth transition */
 }
