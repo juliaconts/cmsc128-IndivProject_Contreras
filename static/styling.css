@@ -52,12 +52,12 @@ h1 {
     gap: 35px;
 }
 
-/* #task-box {
-    box-sizing: border-box;
-    border: 1px solid black;
+#task-box {
+    /* box-sizing: border-box;
+    border: 1px solid black; */
     width: 1000px;
     height: 600px;
-} */
+}
 
 .empty-prompt {
     display: flex;
@@ -143,6 +143,7 @@ li {
 
 .task-label {
     font-size: 1.4rem;
+    cursor: pointer;
 }
 
 /* Priority symbol + task label in one row */
@@ -172,18 +173,18 @@ li.low {
     border-left: 6px solid #535d66; /* green */
 }
 
-/* border-left: 6px solid ; */
-
 /* Task text area */
 .task-info {
     flex: 1;
     margin-left: 8px;
+    cursor: pointer;
 }
 
 .task-desc {
     font-weight: bold;
     color: #555;
     font-size: 20px;
+    cursor: pointer;
 }
 
 .due-date {
@@ -197,4 +198,20 @@ li.low {
     height: 30px;
     cursor: pointer;
     accent-color: #2ecc71;
+}
+
+#header {
+    display: inline-block;
+    border-bottom: 1px solid black;
+    width: 100%;
+    padding-top: 20px;
+}
+
+.prio, h2 {
+    margin: 0px;
+    padding-left: 20px;
+}
+
+h2 {
+    font-size: 30px;
 }

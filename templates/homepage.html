@@ -29,7 +29,16 @@
                     <ul>
                     {% for task in tasks %}
                         <li class="task 
-                            {% if task[1] == 1 %}high{% elif task[1] == 2 %}medium{% else %}low{% endif %}">
+                            {% if task[1] == 1 %}high{% elif task[1] == 2 %}medium{% else %}low{% endif %}"
+                            data-id="{{ task[0] }}"
+                            data-priority="{{ task[1] }}"
+                            data-label="{{ task[2] }}"
+                            data-task="{{ task[3] }}"
+                            data-date="{{ task[4] }}"
+                            data-time="{{ task[5] }}"
+                            data-desc="{{ task[6] }}"
+                            data-sub="{{ task[7] }}"
+                            data-created="{{ task[8] }}">
 
                             <div class="priority-symbol">
                                 {% if task[1] == 1 %}
@@ -69,13 +78,18 @@
                     <p>No task selected</p>
                 </div>
 
+                <div id="task-details" class="hidden"></div>
+
                  <form id="task-form" method="POST" action="{{ url_for('add') }}" class="hidden">
                     <h2>Add New Task</h2>
 
-                    <label>Priority:</label>
-                    <input type="number" name="priority" required><br>
+                    <label>Priority Level:</label> <br>
+                    <input type="radio" name="priority" value=1 required> Highest Priority
+                    <input type="radio" name="priority" value=2 required> Mid Priority
+                    <input type="radio" name="priority" value=3 required> Low Priority 
 
-                    <label>Label:</label>
+                    <br>
+                    <label>Label:</label> 
                     <input type="text" name="label" required><br>
 
                     <label>Task Name:</label>

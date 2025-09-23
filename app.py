@@ -9,6 +9,7 @@ DB_path = "task.db"
 def init_db():
     conn = sqlite3.connect(DB_path)
     cursor = conn.cursor()
+    cursor.execute("DROP TABLE IF EXISTS tasks")
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS tasks (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -45,6 +46,17 @@ def add_task(priority, label, task_name, date, time, task_desc, sub_todo):
     conn.commit()
     conn.close()
 
+def edit_task(id, priority, label, task_name, date, time, task_desc, sub_todo):
+    conn = sqlite3.connect(DB_path)
+    cursor = conn.cursor()
+    cursor.execute('''
+        UPDATE tasks
+        SET priority = ?, label = ?, task_name = ?, date = ?, time = ?, task_desc = ?, sub_todo = ?
+        WHERE id = ?
+    ''', (priority, label, task_name, date, time, task_desc, sub_todo, id))
+    conn.commit()
+    conn.close()
+
 # --- Routes ---
 @app.route('/')
 def homepage():
@@ -53,15 +65,48 @@ def homepage():
 
 @app.route('/add', methods=['POST'])
 def add():
-    priority = request.form.get("priority")
-    label = request.form.get("label")
-    task_name = request.form.get("task_name")
-    date = request.form.get("date")
-    time = request.form.get("time")
-    task_desc = request.form.get("task_desc")
-    sub_todo = request.form.get("sub_todo")
+
+    try:
+        priority = int(request.form.get("priority", 3))
+    except ValueError:
+        priority = 3
+
+    label = request.form.get("label", "").strip()
+    task_name = request.form.get("task_name", "").strip()
+    date = request.form.get("date") or ""
+    time = request.form.get("time") or ""
+    task_desc = request.form.get("task_desc") or ""
+    sub_todo = request.form.get("sub_todo") or ""
 
     add_task(priority, label, task_name, date, time, task_desc, sub_todo)
+    return redirect(url_for("homepage"))
+
+    # priority = request.form.get("priority")
+    # label = request.form.get("label")
+    # task_name = request.form.get("task_name")
+    # date = request.form.get("date")
+    # time = request.form.get("time")
+    # task_desc = request.form.get("task_desc")
+    # sub_todo = request.form.get("sub_todo")
+
+    # add_task(priority, label, task_name, date, time, task_desc, sub_todo)
+    # return redirect(url_for("homepage"))
+
+@app.route('/edit/<int:task_id>', methods=['POST'])
+def edit(task_id):
+    try:
+        priority = int(request.form.get("priority", 3))
+    except ValueError:
+        priority = 3
+
+    label = request.form.get("label", "").strip()
+    task_name = request.form.get("task_name", "").strip()
+    date = request.form.get("date") or ""
+    time = request.form.get("time") or ""
+    task_desc = request.form.get("task_desc") or ""
+    sub_todo = request.form.get("sub_todo") or ""
+
+    edit_task(task_id, priority, label, task_name, date, time, task_desc, sub_todo)
     return redirect(url_for("homepage"))
 
 @app.template_filter("format_date")
