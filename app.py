@@ -26,7 +26,7 @@ def get_manila_now():
 def init_db():
     conn = sqlite3.connect(DB_path)
     cursor = conn.cursor()
-    cursor.execute("DROP TABLE IF EXISTS tasks")
+    # cursor.execute("DROP TABLE IF EXISTS tasks")
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS tasks (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -45,10 +45,19 @@ def init_db():
 
 
 # --- Get all tasks ---
-def get_tasks():
+def get_tasks(sort_by=None):
     conn = sqlite3.connect(DB_path)
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM tasks')
+
+    if sort_by == "priority":
+        cursor.execute('SELECT * FROM tasks ORDER BY priority ASC')
+    elif sort_by == "due":
+        cursor.execute('SELECT * FROM tasks ORDER BY date ASC, time ASC')
+    elif sort_by == "timestamp":
+        cursor.execute('SELECT * FROM tasks ORDER BY created_at DESC')
+    else:
+        cursor.execute('SELECT * FROM tasks')
+
     tasks = cursor.fetchall()
     conn.close()
     return tasks
@@ -112,9 +121,9 @@ def restore_task(task_data):
 
 @app.route('/')
 def homepage():
-    tasks = get_tasks()
-    return render_template('homepage.html', tasks=tasks)
-
+    sort = request.args.get("sort", None)
+    tasks = get_tasks(sort)
+    return render_template('homepage.html', tasks=tasks, sort=sort)
 
 @app.route('/add', methods=['POST'])
 def add():

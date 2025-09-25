@@ -1,5 +1,6 @@
 .header {
     display: flex;
+    align-items: center;          /* vertical centering */
 }
 
 h1 {
@@ -8,16 +9,21 @@ h1 {
     font-size: 45px;
 }
 
+#sort {
+    margin-left: 31.5%;
+}
+
 #sorting {
     height: 36px;
     width: 115px;
-    margin-top: 3%;
-    margin-left: 36%;
+    margin-top: 27px;
+    margin-left: 60px;
+    margin-right: 10px;
     cursor: pointer;
 }
 
 #add-task {
-    margin-top: 3%;
+    margin-top: 2%;
     margin-left: 0.5%;
     display: inline-flex;          /* flexbox for icon + text */
     align-items: center;           /* vertical centering */

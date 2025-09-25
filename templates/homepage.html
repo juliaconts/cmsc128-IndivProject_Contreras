@@ -14,12 +14,16 @@
     <body>
         <div class="header">
             <h1>To Do List:</h1>
-
-            <select name="sort" id="sorting">
-                <option value="priority-lev">Priority</option>
-                <option value="date-added">Date Added</option>
-                <option value="due-date">Due Date</option>
-            </select>
+            
+            <form method="get" action="/" id="sort">
+                <select name="sort" id="sorting" onchange="this.form.submit()">
+                    <option value="" {% if not sort %}selected{% endif %}>-- None --</option>
+                    <option value="priority" {% if sort=="priority" %}selected{% endif %}>Priority</option>
+                    <option value="due" {% if sort=="due" %}selected{% endif %}>Due Date</option>
+                    <option value="timestamp" {% if sort=="timestamp" %}selected{% endif %}>Date Added</option>
+                </select>
+            </form>
+                
             <button id="add-task"><span id="add-button" class="material-symbols-outlined">add</span>Add Task</button>
         </div>
         
