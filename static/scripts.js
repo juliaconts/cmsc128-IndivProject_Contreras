@@ -32,11 +32,16 @@ document.addEventListener("DOMContentLoaded", () => {
     toast.classList.remove("hidden");
     toast.classList.add("show");
 
-    undoBtn.onclick = () => {
-      toast.classList.remove("show");
-      toast.classList.add("hidden");
-      window.location.href = undoUrl;
-    };
+    if (undoUrl && undoUrl !== "#") {
+      undoBtn.style.display = "inline-block";
+      undoBtn.onclick = () => {
+        toast.classList.remove("show");
+        toast.classList.add("hidden");
+        window.location.href = undoUrl;
+      };
+    } else {
+      undoBtn.style.display = "none"; // hide undo for updates
+    }
 
     // Auto-hide after 5s
     setTimeout(() => {
@@ -51,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const formVisible = !taskForm.classList.contains("hidden");
     if (!formVisible) {
-      // show form; hide details and placeholder
       taskForm.classList.remove("hidden");
       taskDetails.classList.add("hidden");
       emptyView.classList.add("hidden");
@@ -59,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const first = taskForm.querySelector("input, textarea, select");
       if (first) first.focus();
     } else {
-      // hide form; return to placeholder if details are hidden
       taskForm.classList.add("hidden");
       viewBox.classList.remove("dim");
       if (taskDetails.classList.contains("hidden")) {
@@ -151,6 +154,13 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
           </form>
         `;
+
+        const editForm = taskDetails.querySelector("form");
+        if (editForm) {
+          editForm.addEventListener("submit", () => {
+            localStorage.setItem("toastMessage", "Task Updated");
+          });
+        }
 
         const cancelBtn = document.getElementById("cancel-edit");
         if (cancelBtn) {
