@@ -200,6 +200,18 @@ li.low {
     accent-color: #2ecc71;
 }
 
+.checkbox-stamp-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;  /* centers text under checkbox */
+    margin-left: 10px;    /* spacing from task details */
+}
+
+.time-stamp {
+    font-size: 10px;     /* make timestamp smaller */
+    color: gray;
+}
+
 #header {
     display: inline-block;
     border-bottom: 1px solid black;
@@ -214,4 +226,28 @@ li.low {
 
 h2 {
     font-size: 30px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 5px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+.toast.hidden {
+  display: none;
 }

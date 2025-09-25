@@ -58,7 +58,12 @@
                                     <span class="due-date">{{ task[4] | format_date }} | {{ task[5] | format_time }}</span>
                                 </div>
                             </div>
-                            <input type="checkbox" class="task-check">
+
+                            <div class="checkbox-stamp-wrapper">
+                                <input type="checkbox" class="task-check">
+                                <span class="time-stamp"><em>Created at: {{ task[8] | format_timestamp }}</em></span>
+                            </div>
+                            
                         </li>
                     {% endfor %}
                     </ul>
@@ -111,8 +116,20 @@
                 </form>
             </div>
         </div>
+
+        <div id="toast" class="toast hidden">
+            <span id="toast-message"></span>
+            <button id="undo-btn">Undo</button>
+        </div>
+
+        
         
     </body>
+
+    <script>
+    // Pass Flask flash message into JS
+            window.flashMessage = "{{ get_flashed_messages()[0] if get_flashed_messages() else '' }}";
+    </script>
     <script src="{{ url_for('static', filename='scripts.js') }}"></script>
 
 </html>
