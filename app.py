@@ -45,7 +45,7 @@ def init_db():
 
 
 # --- Get all tasks ---
-def get_tasks(sort_by=None):
+def get_tasks(sort_by="priority"):
     conn = sqlite3.connect(DB_path)
     cursor = conn.cursor()
 

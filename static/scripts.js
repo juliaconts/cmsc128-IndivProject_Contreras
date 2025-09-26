@@ -20,6 +20,56 @@ document.addEventListener("DOMContentLoaded", () => {
       .replace(/'/g, "&#039;");
   }
 
+  // --- NEW: load saved completions from localStorage
+  function loadCompletionState() {
+    const saved = JSON.parse(localStorage.getItem("completedTasks") || "{}");
+    return saved;
+  }
+
+  function saveCompletionState(state) {
+    localStorage.setItem("completedTasks", JSON.stringify(state));
+  }
+
+  // --- NEW: restore state to DOM
+  function restoreCompletionState() {
+    const completedTasks = loadCompletionState();
+    taskBox.querySelectorAll(".task").forEach((li) => {
+      const id = li.dataset.id;
+      const check = li.querySelector(".task-check");
+      if (id && completedTasks[id]) {
+        li.classList.add("completed");
+        if (check) check.checked = true;
+      } else {
+        li.classList.remove("completed");
+        if (check) check.checked = false;
+      }
+    });
+  }
+
+  // --- checkbox handler
+  taskBox.addEventListener("change", (ev) => {
+    if (ev.target.classList.contains("task-check")) {
+      const li = ev.target.closest(".task");
+      if (!li) return;
+
+      const id = li.dataset.id;
+      const completedTasks = loadCompletionState();
+
+      if (ev.target.checked) {
+        li.classList.add("completed");
+        if (id) completedTasks[id] = true; // save
+      } else {
+        li.classList.remove("completed");
+        if (id) delete completedTasks[id]; // remove
+      }
+
+      saveCompletionState(completedTasks); // persist
+    }
+  });
+
+  // --- restore state on load
+  restoreCompletionState();
+
   // toast notification helper
   function showToast(message, undoUrl) {
     const toast = document.getElementById("toast");
@@ -213,5 +263,16 @@ document.addEventListener("DOMContentLoaded", () => {
     showToast(savedMsg, savedUndo || "#");
     localStorage.removeItem("toastMessage");
     localStorage.removeItem("undoUrl");
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("toggle-sub");
+  const subBox = document.getElementById("sub-task-box");
+
+  if (toggle && subBox) {
+    toggle.addEventListener("change", () => {
+      subBox.style.display = toggle.checked ? "block" : "none";
+    });
   }
 });

@@ -8,7 +8,7 @@
         <link rel="icon" type="image/x-icon" href="./Images/Icons/Icon.png">  
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=add,content_paste,gesture_select" />
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styling.css') }}">
-        
+
         <!-- <script src="script.js" defer></script> -->
     </head>
     <body>
@@ -17,7 +17,7 @@
             
             <form method="get" action="/" id="sort">
                 <select name="sort" id="sorting" onchange="this.form.submit()">
-                    <option value="" {% if not sort %}selected{% endif %}>-- None --</option>
+                    <!-- <option value="" {% if not sort %}selected{% endif %}>-- None --</option> -->
                     <option value="priority" {% if sort=="priority" %}selected{% endif %}>Priority</option>
                     <option value="due" {% if sort=="due" %}selected{% endif %}>Due Date</option>
                     <option value="timestamp" {% if sort=="timestamp" %}selected{% endif %}>Date Added</option>
@@ -90,33 +90,60 @@
                 <div id="task-details" class="hidden"></div>
 
                  <form id="task-form" method="POST" action="{{ url_for('add') }}" class="hidden">
-                    <h2>Add New Task</h2>
+                    <h2>New Task</h2>
 
-                    <label>Priority Level:</label> <br>
-                    <input type="radio" name="priority" value=1 required> Highest Priority
-                    <input type="radio" name="priority" value=2 required> Mid Priority
-                    <input type="radio" name="priority" value=3 required> Low Priority 
+                    <div id="task-header">
 
-                    <br>
-                    <label>Label:</label> 
-                    <input type="text" name="label" required><br>
+                        <div id="prio-select">
+                            <label>Priority Level:</label><br>
+                            <input type="radio" name="priority" value=1 required> Highest Priority
+                            <input type="radio" name="priority" value=2 required> Mid Priority
+                            <input type="radio" name="priority" value=3 required> Low Priority 
+                        </div>
 
-                    <label>Task Name:</label>
-                    <input type="text" name="task_name" required><br>
+                        <div id="label">
+                            <label>Label</label> 
+                            <br>
+                            <input type="text" name="label" placeholder="Enter a course/custom"><br>
+                        </div>
 
-                    <label>Date:</label>
-                    <input type="date" name="date"><br>
+                        <div id="to-do-title">
+                            <label>Task Name</label>
+                            <br>
+                            <input type="text" name="task_name" placeholder="Enter to-do"><br>
+                        </div>
+                        
+                        <span class="dl-label">Deadline</span>
 
-                    <label>Time:</label>
-                    <input type="time" name="time"><br>
+                        <div id="deadline">
+                            <label>Date:</label>
+                            <input type="date" name="date" placeholder="mm/dd/yyyy"><br>
 
-                    <label>Description:</label>
-                    <textarea name="task_desc"></textarea><br>
+                            <label>Time:</label>
+                            <input type="time" name="time"><br>
+                        </div>
+                    </div>
 
-                    <label>Sub-Tasks:</label>
-                    <input type="text" name="sub_todo"><br>
+                    <div id="desc-label">
+                        <label>Description</label>
+                        <br>
+                        <textarea name="task_desc" placeholder="Enter task description..."></textarea><br>
+                    </div>
 
-                    <button type="submit">Save Task</button>
+                    <label class="switch-label">
+                        Add sub to-do(s)
+                        <label class="switch" title="Toggle sub to-dos">
+                            <input type="checkbox" id="toggle-sub">
+                            <span class="slider"></span>
+                        </label>
+                    </label>
+
+                    <div id="sub-task-box" class="sub-box" aria-hidden="true">
+                        <label>Sub To-dos:</label>
+                        <input type="text" name="sub_todo" placeholder="Enter sub-tasks"><br>
+                    </div>
+                        
+                    <button class="create-btn" type="submit">CREATE</button>
                 </form>
             </div>
         </div>
@@ -125,8 +152,6 @@
             <span id="toast-message"></span>
             <button id="undo-btn">Undo</button>
         </div>
-
-        
         
     </body>
 
