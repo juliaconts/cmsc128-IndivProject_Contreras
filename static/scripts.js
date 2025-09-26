@@ -150,21 +150,41 @@ document.addEventListener("DOMContentLoaded", () => {
     const sub = li.dataset.sub || "";
     const created = li.dataset.created || "";
 
+    const priorityMap = {
+      "1": "High",
+      "2": "Medium",
+      "3": "Low"
+    };
+    const priorityLabel = priorityMap[priority] || priority; // fallback if something else
+
     // show details
     taskDetails.innerHTML = `
       <div class="task-details-box">
+
         <div id="header">
-          <span class="prio"><small>Priority Level: ${escapeHtml(priority)}</small></span>
-          <h2>${escapeHtml(taskName)}</h2>
-          <p><strong>Label:</strong> ${escapeHtml(label)}</p>
+          <span class="prio">Priority Level: <strong>${escapeHtml(priorityLabel)}</strong></span>
+          <span>Label: <strong>${escapeHtml(label)}</strong></span>
         </div>
-        <p><strong>Due Date:</strong> ${escapeHtml(date)} ${escapeHtml(time)}</p>
-        <p><strong>Description:</strong><br>${escapeHtml(desc)}</p>
-        <p><strong>Sub-tasks:</strong> ${escapeHtml(sub)}</p>
-        <p><em>Created: ${escapeHtml(created)}</em></p>
-        <div style="margin-top:12px;">
-          <button id="edit-task-btn" type="button">Edit</button>
-          <button id="delete-task-btn" type="button">Delete</button>
+
+        <h2 class="task-todo">${escapeHtml(taskName)}</h2>
+        <hr>
+
+        <div id="details">
+          <span><strong>Deadline: </strong>${escapeHtml(formatDate(date))} | ${escapeHtml(formatTime(time))}</span>
+          <br><br>
+          <span><strong>Description:</strong><br>${escapeHtml(desc)}</span>
+          <br><br><br>
+          <span><strong>Sub-tasks:</strong> ${escapeHtml(sub)}</span>
+          <br><br>
+        </div>
+
+        <div id="footer">
+          <span><em>Created: ${escapeHtml(created)}</em></span>
+
+          <div class="buttons" style="margin-top:12px;">
+            <button id="edit-task-btn" type="button">Edit</button>
+            <button id="delete-task-btn" type="button">Delete</button>
+          </div>
         </div>
       </div>
     `;
@@ -276,3 +296,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+// --- format helpers
+function formatDate(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  if (isNaN(d)) return dateStr; // fallback if invalid
+  return d.toLocaleDateString("en-US", {
+    month: "long",   // "September"
+    day: "numeric",  // "27"
+    year: "numeric", // "2025"
+  });
+}
+
+function formatTime(timeStr) {
+  if (!timeStr) return "";
+  const [hourStr, minute] = timeStr.split(":");
+  let hour = parseInt(hourStr, 10);
+  const ampm = hour >= 12 ? "PM" : "AM";
+  hour = hour % 12 || 12; // convert 0 → 12
+  return `${hour}:${minute} ${ampm}`;
+}

@@ -220,21 +220,52 @@ li.low {
     color: gray;
 }
 
-/* edit task design */
+/* view task design */
 #header {
-    display: inline-block;
-    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid gray;
+    align-items: center;
     width: 100%;
-    padding-top: 20px;
+    font-size: 16px;
+    margin-top: 8%;
+    gap: 95px;
 }
 
-.prio, h2 {
-    margin: 0px;
-    padding-left: 20px;
+hr {
+    margin-top: 3%;
 }
 
-#header h2 {
+#header span {
+    margin-top: 3%;
+    margin-bottom: 2%;
+}
+
+.task-todo {
     font-size: 30px;
+    margin: 0px;
+    margin-left: 6%;
+    margin-top: 3%;
+}
+
+#details {
+    margin-top: 3%;
+    margin-left: 6%;
+    font-size: 18px;
+}
+
+#footer {
+    border-top: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 54%;
+}
+
+#footer span {
+    margin-top: 9%;
+    margin-right: 15%;
 }
 
 /* toast message design */
@@ -292,6 +323,7 @@ li.low {
 
 #prio-select input[type="radio"]{
     cursor: pointer;
+    margin-left: 10px;
 }
 
 #to-do-title {
@@ -421,8 +453,8 @@ li.low {
 }
 
 .create-btn {
-    margin-top: 80px;
-    margin-left: 66%;
+    margin-top: 50px;
+    margin-left: 66.5%;
     align-content: center;
     padding: 10px;
     width: 110px;
