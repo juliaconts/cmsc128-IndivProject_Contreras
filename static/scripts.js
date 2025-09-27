@@ -1,4 +1,8 @@
+
+// ==================== MAIN SCRIPT ====================
 document.addEventListener("DOMContentLoaded", () => {
+
+  // Grab key DOM elements
   const addBtn = document.getElementById("add-task");
   const viewBox = document.getElementById("task-view-box");
   const emptyView = document.getElementById("empty-view");
@@ -6,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const taskForm = document.getElementById("task-form");
   const taskBox = document.getElementById("task-box");
 
-  // guard: if any critical element is missing, stop
+  // guard clause: stop if any critical element is missing
   if (!addBtn || !viewBox || !emptyView || !taskDetails || !taskForm || !taskBox) return;
 
   // helper: escape text inserted into innerHTML
@@ -20,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .replace(/'/g, "&#039;");
   }
 
-  // --- NEW: load saved completions from localStorage
+  //==================== COMPLETION STATE (localStorage) ====================
   function loadCompletionState() {
     const saved = JSON.parse(localStorage.getItem("completedTasks") || "{}");
     return saved;
@@ -30,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("completedTasks", JSON.stringify(state));
   }
 
-  // --- NEW: restore state to DOM
+  // Restore task completion state to DOM
   function restoreCompletionState() {
     const completedTasks = loadCompletionState();
     taskBox.querySelectorAll(".task").forEach((li) => {
@@ -46,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- checkbox handler
+  // Save changes when checkbox toggled
   taskBox.addEventListener("change", (ev) => {
     if (ev.target.classList.contains("task-check")) {
       const li = ev.target.closest(".task");
@@ -70,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- restore state on load
   restoreCompletionState();
 
-  // toast notification helper
+  // ==================== TOAST NOTIFICATION ====================
   function showToast(message, undoUrl) {
     const toast = document.getElementById("toast");
     const toastMsg = document.getElementById("toast-message");
@@ -100,12 +104,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 5000);
   }
 
-  // Show Add form (toggle)
+  // ==================== ADD FORM TOGGLE ====================
   addBtn.addEventListener("click", (ev) => {
     ev.stopPropagation();
 
     const formVisible = !taskForm.classList.contains("hidden");
     if (!formVisible) {
+      // Show form
       taskForm.classList.remove("hidden");
       taskDetails.classList.add("hidden");
       emptyView.classList.add("hidden");
@@ -113,6 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const first = taskForm.querySelector("input, textarea, select");
       if (first) first.focus();
     } else {
+      // Hide form
       taskForm.classList.add("hidden");
       viewBox.classList.remove("dim");
       if (taskDetails.classList.contains("hidden")) {
@@ -121,10 +127,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // clicking inside the right panel shouldn’t bubble
+  // Prevent clicks inside right panel from closing form/details
   viewBox.addEventListener("click", (e) => e.stopPropagation());
 
-  // Event delegation for task clicks
+  // ==================== TASK CLICK HANDLER ====================
   taskBox.addEventListener("click", (ev) => {
     const li = ev.target.closest(".task");
     if (!li) return;
@@ -145,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     viewBox.classList.remove("high", "medium", "low");
 
-    // apply based on priority
+    // apply color based on priority
     if (priority === "1") {
       viewBox.classList.add("high");
     } else if (priority === "2") {
@@ -162,6 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const sub = li.dataset.sub || "";
     const created = li.dataset.created || "";
 
+    // map numeric priority -> label
     const priorityMap = {
       "1": "High",
       "2": "Medium",
@@ -169,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     const priorityLabel = priorityMap[priority] || priority; // fallback if something else
 
-    // show details
+    // render task details
     taskDetails.innerHTML = `
       <div class="task-details-box">
 
@@ -201,10 +208,11 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `;
 
-    // edit button logic
+    // ==================== EDIT BUTTON ====================
     const editBtn = document.getElementById("edit-task-btn");
     if (editBtn) {
       editBtn.addEventListener("click", () => {
+        // Replace details with editable form
         taskDetails.innerHTML = `
           <form method="POST" action="/edit/${li.dataset.id}" class="task-details-box">
             <h2 class="edit-task">Edit Task</h2>
@@ -274,6 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
           </form>
         `;
 
+        // Sub-task toggle in edit form
         const toggle = document.getElementById("toggle-sub");
         const subBox = document.getElementById("sub-task-box");
         if (toggle && subBox) {
@@ -282,6 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         }
 
+        // Save changes toast
         const editForm = taskDetails.querySelector("form");
         if (editForm) {
           editForm.addEventListener("submit", () => {
@@ -289,6 +299,7 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         }
 
+        // cancel button handler
         const cancelBtn = document.getElementById("cancel-edit");
         if (cancelBtn) {
           cancelBtn.addEventListener("click", () => {
@@ -302,7 +313,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // delete button logic
+    // ==================== DELETE BUTTON ====================
     const deleteBtn = document.getElementById("delete-task-btn");
     if (deleteBtn) {
       deleteBtn.addEventListener("click", () => {
@@ -317,7 +328,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Click outside → reset to placeholder
+  // ====================  CLICK OUTSIDE RESET ====================
   document.addEventListener("click", () => {
     if (
       !emptyView.classList.contains("hidden") &&
@@ -345,6 +356,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+// ==================== SUB-TODO TOGGLE (GLOBAL) ====================
 document.addEventListener("DOMContentLoaded", () => {
   const toggle = document.getElementById("toggle-sub");
   const subBox = document.getElementById("sub-task-box");
@@ -356,7 +368,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// --- format helpers
+//  ==================== FORMAT HELPERS ====================
 function formatDate(dateStr) {
   if (!dateStr) return "";
   const d = new Date(dateStr);

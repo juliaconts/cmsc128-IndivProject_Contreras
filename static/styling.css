@@ -3,9 +3,10 @@
     font-family: Nunito, sans-serif;
 }
 
+/* Header and title */
 .header {
     display: flex;
-    align-items: center;          /* vertical centering */
+    align-items: center;
 }
 
 h1 {
@@ -27,6 +28,7 @@ h1 {
     cursor: pointer;
 }
 
+/* Add task button */
 #add-task {
     margin-top: 2%;
     margin-left: 0.5%;
@@ -55,6 +57,7 @@ h1 {
     cursor: pointer; 
 }
 
+/* Main interface */
 .main-interface {
     display: flex;
     justify-content: center;
@@ -70,7 +73,7 @@ h1 {
     height: 600px;
 }
 
-/* empty task view box */
+/* Empty prompts */
 .empty-prompt {
     display: flex;
     flex-direction: column;
@@ -131,7 +134,7 @@ h1 {
     transition: all 0.2s ease-in-out;        /* smooth transition */
 }
 
-/* design for each task box */
+/* Task list (Left Side) */
 ul {
     padding-left: 20px;
 }
@@ -164,8 +167,6 @@ li {
 .task-label {
     display: flex;
     align-items: center;
-    /* font-size: 20px; */
-    /* font-size: 1.2rem; */
     margin-right: 5px;
 }
 
@@ -205,7 +206,7 @@ li.low {
     color: red;
 }
 
-/* Checkbox */
+/* Checkbox and timestamp (Task list)*/
 .task-check {
     width: 30px;
     height: 30px;
@@ -225,7 +226,7 @@ li.low {
     color: gray;
 }
 
-/* view task design */
+/* Task view (Right Side) */
 #header {
     display: flex;
     justify-content: center;
@@ -333,7 +334,7 @@ hr {
   display: none;
 }
 
-/* design for marked as complete */
+/* Completed tasks */
 .task.completed {
     background-color: #d4edda;
     border-left: 5px solid #28a745;
@@ -344,7 +345,7 @@ hr {
     color: #155724;
 }
 
-/* add task design */
+/* Add task form */
 #task-form h2 {
     text-align: center;
     padding-right: 20px;
@@ -428,7 +429,7 @@ hr {
     padding: 2%;
 }
 
-/* Container label so text and toggle align */
+/* Sub-task toggle */
 .switch-label {
   display: flex;
   align-items: center;
@@ -508,7 +509,7 @@ hr {
     opacity: 0.9rem;
 }
 
-/* edit task form */
+/* Edit task form */
 .edit-task {
     text-align: center;
     margin: 5%;
@@ -531,8 +532,6 @@ hr {
 }
 
 #save-changes {
-    /* margin-left: 140px; */
-    /* margin-top: 20px; */
     padding: 5px;
     font-size: 20px;
 }
@@ -554,7 +553,6 @@ hr {
 }
 
 /* task-view-box color for every priority */
-
 #task-view-box {
   transition: background-color 0.3s ease, border 0.3s ease;
 }

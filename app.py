@@ -2,11 +2,13 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from datetime import datetime, timedelta, timezone
 import sqlite3
 
+# timezone handling
 try:
     from zoneinfo import ZoneInfo
 except ImportError:
     ZoneInfo = None
 
+# app configuration
 app = Flask(__name__)
 app.secret_key = "super-secret-key"  # needed for session + flash
 DB_path = "task.db"
@@ -44,7 +46,7 @@ def init_db():
     conn.close()
 
 
-# --- Get all tasks ---
+# --- Get all tasks with sorting ---
 def get_tasks(sort_by="priority"):
     conn = sqlite3.connect(DB_path)
     cursor = conn.cursor()
@@ -63,7 +65,7 @@ def get_tasks(sort_by="priority"):
     return tasks
 
 
-# --- Add task ---
+# --- Add new task ---
 def add_task(priority, label, task_name, date, time, task_desc, sub_todo):
     conn = sqlite3.connect(DB_path)
     cursor = conn.cursor()
@@ -79,7 +81,7 @@ def add_task(priority, label, task_name, date, time, task_desc, sub_todo):
     conn.close()
 
 
-# --- Edit task ---
+# --- Edit an existing task ---
 def edit_task(id, priority, label, task_name, date, time, task_desc, sub_todo):
     conn = sqlite3.connect(DB_path)
     cursor = conn.cursor()
@@ -105,7 +107,7 @@ def delete_task(id):
     return deleted
 
 
-# --- Restore task (undo delete) ---
+# --- Restores deleted task (undo delete) ---
 def restore_task(task_data):
     conn = sqlite3.connect(DB_path)
     cursor = conn.cursor()
@@ -119,12 +121,14 @@ def restore_task(task_data):
 
 # ------------------ Routes ------------------
 
+# --- Homepage: shows all tasks ---
 @app.route('/')
 def homepage():
     sort = request.args.get("sort", None)
     tasks = get_tasks(sort)
     return render_template('homepage.html', tasks=tasks, sort=sort)
 
+# --- Add new task (form submit) ---
 @app.route('/add', methods=['POST'])
 def add():
     try:
@@ -142,7 +146,7 @@ def add():
     add_task(priority, label, task_name, date, time, task_desc, sub_todo)
     return redirect(url_for("homepage"))
 
-
+# --- edit existing task ---
 @app.route('/edit/<int:task_id>', methods=['POST'])
 def edit(task_id):
     try:
@@ -160,7 +164,7 @@ def edit(task_id):
     edit_task(task_id, priority, label, task_name, date, time, task_desc, sub_todo)
     return redirect(url_for("homepage"))
 
-
+# --- delete task (stores last deleted in session for undo) ---
 @app.route('/delete/<int:task_id>')
 def delete(task_id):
     deleted_task = delete_task(task_id)
@@ -169,7 +173,7 @@ def delete(task_id):
         flash("Task Deleted")
     return redirect(url_for("homepage"))
 
-
+#  --- undo delete (restore last deleted task) ---
 @app.route('/undo_delete')
 def undo_delete():
     if 'last_deleted' in session:
@@ -180,6 +184,8 @@ def undo_delete():
 
 
 # --- Filters ---
+
+# --- Date filter ---
 @app.template_filter("format_date")
 def format_date(value, format="%B %d, %Y"):
     try:
@@ -188,7 +194,7 @@ def format_date(value, format="%B %d, %Y"):
     except Exception:
         return value
 
-
+# --- time filter ---
 @app.template_filter("format_time")
 def format_time(value, format="%I:%M %p"):
     try:
@@ -196,7 +202,7 @@ def format_time(value, format="%I:%M %p"):
     except Exception:
         return value
 
-
+# --- timestamp filter ---
 @app.template_filter("format_timestamp")
 def format_timestamp(value, format="%m-%d-%Y | %I:%M %p"):
     try:
@@ -206,7 +212,7 @@ def format_timestamp(value, format="%m-%d-%Y | %I:%M %p"):
         print("Timestamp parse error:", e, value)
         return value
 
-
+# --- app entry point ---
 if __name__ == "__main__":
     init_db()
     app.run(debug=True)
