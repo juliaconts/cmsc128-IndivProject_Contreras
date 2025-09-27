@@ -12,7 +12,7 @@ This To-do list web app was built with the following tech stack:
 -> Why use Flask and SQLite as your backend + database?
     Flask and SQLite are both lightweight and minimal, making them easy to use for a small projects like this activity.
     Flask is easy to learn because it uses Python. You can add the features you need instead of being forced into a heavy framework. It uses simple Python functions, routes, and filters, making the code easy to read and understand. 
-    SQLite is also to setup because all its data is stored in a single file where you don't need to install or run a separate database server. Since SQLite is built into Python, there is no need for extra installations or environment setup.
+    SQLite is also to setup because all its data is stored in a single file where you don't need to install or run a separate database server. Since SQLite is built into Python, there is no need for extra installations or environment setup. Its syntax in making queries are very similar to mySQL as I have prior experience in handling mySQL.
 
 -> How to run the web application?
 1. Clone this repository
