@@ -142,6 +142,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // read data attributes
     const priority = li.dataset.priority || li.dataset.prio || "";
+
+    viewBox.classList.remove("high", "medium", "low");
+
+    // apply based on priority
+    if (priority === "1") {
+      viewBox.classList.add("high");
+    } else if (priority === "2") {
+      viewBox.classList.add("medium");
+    } else if (priority === "3") {
+      viewBox.classList.add("low");
+    }
+
     const label = li.dataset.label || "";
     const taskName = li.dataset.task || "";
     const date = li.dataset.date || "";
@@ -179,11 +191,11 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
 
         <div id="footer">
-          <span><em>Created: ${escapeHtml(created)}</em></span>
+          <span><em>Created on: ${escapeHtml(formatCreatedDateTime(created))}</em></span>
 
           <div class="buttons" style="margin-top:12px;">
-            <button id="edit-task-btn" type="button">Edit</button>
-            <button id="delete-task-btn" type="button">Delete</button>
+            <button id="edit-task-btn" type="button"  title="Edit Task"><span class="material-symbols-outlined">edit_square</span></button>
+            <button id="delete-task-btn" type="button"  title="Delete Task"><span class="material-symbols-outlined">delete</span></button>
           </div>
         </div>
       </div>
@@ -195,35 +207,80 @@ document.addEventListener("DOMContentLoaded", () => {
       editBtn.addEventListener("click", () => {
         taskDetails.innerHTML = `
           <form method="POST" action="/edit/${li.dataset.id}" class="task-details-box">
-            <h2>Edit Task</h2>
+            <h2 class="edit-task">Edit Task</h2>
 
-            <label>Priority:</label>
-            <input type="number" name="priority" value="${escapeHtml(priority)}" min="1" max="3" required><br>
+            <div id="task-header">
 
-            <label>Label:</label>
-            <input type="text" name="label" value="${escapeHtml(label)}" required><br>
+              <div id="edit-prio-select">
+                <label><strong>Priority Level:</strong></label>
+                <label><br>
+                  <input type="radio" name="priority" value="1" ${priority === "1" ? "checked" : ""}> High Priority
+                </label>
+                <label>
+                  <input type="radio" name="priority" value="2" ${priority === "2" ? "checked" : ""}> Medium Priority
+                </label>
+                <label>
+                  <input type="radio" name="priority" value="3" ${priority === "3" ? "checked" : ""}> Low Priority
+                </label>
+              </div>
 
-            <label>Task Name:</label>
-            <input type="text" name="task_name" value="${escapeHtml(taskName)}" required><br>
+              <div id="label">
+                <label><strong>Label</strong></label>
+                <br>
+                <input type="text" name="label" value="${escapeHtml(label)}" required><br>
+              </div>
 
-            <label>Date:</label>
-            <input type="date" name="date" value="${escapeHtml(date)}"><br>
+              <div id="to-do-title">
+                <label><strong>Task Name</strong></label>
+                <br>
+                <input type="text" name="task_name" value="${escapeHtml(taskName)}" required><br>
+              </div>
+              
+              <span class="dl-label"><strong>Deadline</strong></span>
 
-            <label>Time:</label>
-            <input type="time" name="time" value="${escapeHtml(time)}"><br>
+              <div id="deadline">
+                <label>Date:</label>
+                <input type="date" name="date" value="${escapeHtml(date)}"><br>
 
-            <label>Description:</label>
-            <textarea name="task_desc">${escapeHtml(desc)}</textarea><br>
+                <label>Time:</label>
+                <input type="time" name="time" value="${escapeHtml(time)}"><br>
+              </div>
+            </div>
 
-            <label>Sub-Tasks:</label>
-            <input type="text" name="sub_todo" value="${escapeHtml(sub)}"><br>
+            <div id="desc-label">
+              <label><strong>Description</strong></label>
+              <br>
+              <textarea name="task_desc">${escapeHtml(desc)}</textarea><br>
+            </div>
 
-            <div style="margin-top:12px;">
-              <button type="submit">Save Changes</button>
-              <button type="button" id="cancel-edit">Cancel</button>
+            <label class="switch-label">
+                <strong> Add sub to-do(s) </strong>
+                <label class="switch" title="Toggle sub to-dos">
+                    <input type="checkbox" id="toggle-sub" ${sub ? "checked" : ""}>
+                    <span class="slider"></span>
+                </label>
+            </label>
+
+            <div id="sub-task-box" class="sub-box" style="display:${sub ? "block" : "none"}" aria-hidden="true">
+              <label>Sub-Tasks:</label>
+              <input type="text" name="sub_todo" value="${escapeHtml(sub)}"><br>
+            </div>
+
+            <div id="save-cancel-btns">
+              <button type="button" id="cancel-edit"  title="Cancel Edit"><span class="material-symbols-outlined">close</span></button>
+              <button type="submit" id="save-changes">SAVE CHANGES</button>
+              
             </div>
           </form>
         `;
+
+        const toggle = document.getElementById("toggle-sub");
+        const subBox = document.getElementById("sub-task-box");
+        if (toggle && subBox) {
+          toggle.addEventListener("change", () => {
+            subBox.style.display = toggle.checked ? "block" : "none";
+          });
+        }
 
         const editForm = taskDetails.querySelector("form");
         if (editForm) {
@@ -274,6 +331,8 @@ document.addEventListener("DOMContentLoaded", () => {
     [...taskBox.querySelectorAll(".task")].forEach((t) => t.classList.remove("selected"));
     emptyView.classList.remove("hidden");
     viewBox.classList.remove("dim");
+
+    viewBox.classList.remove("high", "medium", "low");
   });
 
   // show toast if stored in localStorage
@@ -303,9 +362,9 @@ function formatDate(dateStr) {
   const d = new Date(dateStr);
   if (isNaN(d)) return dateStr; // fallback if invalid
   return d.toLocaleDateString("en-US", {
-    month: "long",   // "September"
-    day: "numeric",  // "27"
-    year: "numeric", // "2025"
+    month: "long",   
+    day: "numeric", 
+    year: "numeric",
   });
 }
 
@@ -316,4 +375,23 @@ function formatTime(timeStr) {
   const ampm = hour >= 12 ? "PM" : "AM";
   hour = hour % 12 || 12; // convert 0 → 12
   return `${hour}:${minute} ${ampm}`;
+}
+
+function formatCreatedDateTime(createdStr) {
+  if (!createdStr) return "";
+  const d = new Date(createdStr);
+  if (isNaN(d)) return createdStr; // fallback if invalid
+
+  // format MM-DD-YYYY
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  const year = d.getFullYear();
+
+  // format hh:mm AM/PM
+  let hour = d.getHours();
+  const minute = String(d.getMinutes()).padStart(2, "0");
+  const ampm = hour >= 12 ? "PM" : "AM";
+  hour = hour % 12 || 12; // 0 → 12
+
+  return `${month}-${day}-${year} ${hour}:${minute} ${ampm}`;
 }

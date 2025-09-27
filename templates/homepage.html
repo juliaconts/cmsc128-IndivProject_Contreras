@@ -7,6 +7,10 @@
         <title>To-Do List</title>
         <link rel="icon" type="image/x-icon" href="./Images/Icons/Icon.png">  
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=add,content_paste,gesture_select" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styling.css') }}">
 
         <!-- <script src="script.js" defer></script> -->
@@ -24,7 +28,7 @@
                 </select>
             </form>
                 
-            <button id="add-task"><span id="add-button" class="material-symbols-outlined">add</span>Add Task</button>
+            <button id="add-task" title="Click to + a new task"><span id="add-button" class="material-symbols-outlined">add</span>Add Task</button>
         </div>
         
         <div class="main-interface">
@@ -65,7 +69,7 @@
 
                             <div class="checkbox-stamp-wrapper">
                                 <input type="checkbox" class="task-check">
-                                <span class="time-stamp"><em>Created at: {{ task[8] | format_timestamp }}</em></span>
+                                <span class="time-stamp"><em>Created on: {{ task[8] | format_timestamp }}</em></span>
                             </div>
                             
                         </li>
@@ -95,25 +99,25 @@
                     <div id="task-header">
 
                         <div id="prio-select">
-                            <label>Priority Level:</label><br>
+                            <label><strong>Priority Level:</strong></label><br>
                             <input type="radio" name="priority" value=1 required> High Priority
                             <input type="radio" name="priority" value=2 required> Mid Priority
                             <input type="radio" name="priority" value=3 required> Low Priority 
                         </div>
 
                         <div id="label">
-                            <label>Label</label> 
+                            <label><strong>Label</strong></label> 
                             <br>
                             <input type="text" name="label" placeholder="Enter a course/custom"><br>
                         </div>
 
                         <div id="to-do-title">
-                            <label>Task Name</label>
+                            <label><strong>Task Name</strong></label>
                             <br>
                             <input type="text" name="task_name" placeholder="Enter to-do"><br>
                         </div>
                         
-                        <span class="dl-label">Deadline</span>
+                        <span class="dl-label"><strong>Deadline</strong></span>
 
                         <div id="deadline">
                             <label>Date:</label>
@@ -125,13 +129,13 @@
                     </div>
 
                     <div id="desc-label">
-                        <label>Description</label>
+                        <label><strong>Description</strong></label>
                         <br>
                         <textarea name="task_desc" placeholder="Enter task description..."></textarea><br>
                     </div>
 
                     <label class="switch-label">
-                        Add sub to-do(s)
+                        <strong>Add sub to-do(s)</strong>
                         <label class="switch" title="Toggle sub to-dos">
                             <input type="checkbox" id="toggle-sub">
                             <span class="slider"></span>

@@ -1,3 +1,8 @@
+
+* {
+    font-family: Nunito, sans-serif;
+}
+
 .header {
     display: flex;
     align-items: center;          /* vertical centering */
@@ -91,7 +96,7 @@ h1 {
     box-sizing: border-box;
     border: 1px solid black;
     width: 400px;
-    height: 595px;
+    height: 600px;
     position: static;
     margin-top: -51.5px;
 }
@@ -178,7 +183,7 @@ li.medium {
     border-left: 6px solid #f39c12; /* orange */
 }
 li.low {
-    border-left: 6px solid #535d66; /* green */
+    border-left: 6px solid #535d66;
 }
 
 /* Task text area */
@@ -260,12 +265,47 @@ hr {
     justify-content: center;
     align-items: center;
     gap: 12px;
-    margin-top: 54%;
+    margin-top: 45%;
 }
 
 #footer span {
-    margin-top: 9%;
-    margin-right: 15%;
+    margin-top: 4%;
+    margin-left: 5%;
+    margin-right: 7%;
+    font-size: 14px;
+}
+
+#edit-task-btn, #delete-task-btn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    margin-top: 2%;
+}
+
+#delete-task-btn {
+    margin-right: 12px;
+}
+
+#delete-task-btn .material-symbols-outlined {
+    color: red;
+}
+
+#delete-task-btn .material-symbols-outlined:hover {
+    color: darkred;
+    opacity: 0.9;
+}
+
+#edit-task-btn {
+    margin-right: 5px;
+}
+
+#edit-task-btn .material-symbols-outlined:hover {
+    color: gray;
+    opacity: 0.9;
+}
+
+#edit-task-btn .material-symbols-outlined, #delete-task-btn .material-symbols-outlined {
+    font-size: 35px;
 }
 
 /* toast message design */
@@ -308,7 +348,7 @@ hr {
 #task-form h2 {
     text-align: center;
     padding-right: 20px;
-    padding-top: 10px;
+    padding-top: 5px;
 }
 
 #task-header {
@@ -428,7 +468,8 @@ hr {
 .slider:before {
   position: absolute;
   content: "";
-  height: 18px; width: 18px;
+  height: 18px; 
+  width: 18px;
   left: 3px;
   bottom: 3px;
   background-color: white;
@@ -447,21 +488,89 @@ hr {
 
 #sub-task-box {
     display: none;
-    position: fixed;
+    position: absolute;
     margin-left: 1.5%;
-    margin-top: 0.5%;
+    margin-top: 5px;
 }
 
 .create-btn {
-    margin-top: 50px;
+    margin-top: 40px;
     margin-left: 66.5%;
     align-content: center;
     padding: 10px;
     width: 110px;
     font-size: 20px;
+    font-weight: bold;
     cursor: pointer;
 }
 
 .create-btn :hover {
     opacity: 0.9rem;
+}
+
+/* edit task form */
+.edit-task {
+    text-align: center;
+    margin: 5%;
+}
+
+#edit-prio-select {
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+#save-cancel-btns {
+    margin-top: 13%;
+    margin-right: 6%;
+    display: flex;
+    justify-content: end;
+}
+
+#save-changes, #cancel-edit {
+    cursor: pointer;
+}
+
+#save-changes {
+    /* margin-left: 140px; */
+    /* margin-top: 20px; */
+    padding: 5px;
+    font-size: 20px;
+}
+
+#cancel-edit {
+    margin-right: 37%;
+    border: none;
+    background-color: transparent;
+}
+
+#cancel-edit .material-symbols-outlined {
+    font-size: 40px;
+    color: red;
+}
+
+#cancel-edit .material-symbols-outlined:hover {
+    color: darkred;
+    opacity: 0.9;
+}
+
+/* task-view-box color for every priority */
+
+#task-view-box {
+  transition: background-color 0.3s ease, border 0.3s ease;
+}
+
+/* Priority-based colors */
+#task-view-box.high {
+  background-color: #ffe5e5; /* light red for High */
+  border-top: 6px solid #ff4d4d;
+}
+
+#task-view-box.medium {
+  background-color: #fff7e5; /* light orange for Medium */
+  border-top: 6px solid #ffb84d;
+}
+
+#task-view-box.low {
+  background-color: rgb(227, 227, 227); /* light green for Low */
+  border-top: 6px solid #535d66;
 }
