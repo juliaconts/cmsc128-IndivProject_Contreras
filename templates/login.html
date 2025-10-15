@@ -10,6 +10,19 @@
     <body>
         <h2>Login</h2>
 
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <ul style="list-style:none; padding:0;">
+                {% for category, message in messages %}
+                <li>
+                    {{ message }}
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        {% endwith %}
+
         <form method="POST">
             <!-- <label for="username">Username:</label>
             <input type="text" placeholder="Enter Username" name="username" required>

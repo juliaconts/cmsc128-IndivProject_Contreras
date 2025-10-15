@@ -8,9 +8,40 @@
     </head>
 
     <body>
-        <h2> this is the account profile</h2>
+        <h1>Account Profile</h1>
 
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul id="flash-messages" style="list-style:none;">
+                {% for category, message in messages|unique %}
+                    <li data-category="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
 
-    </body>
+        <!-- View Mode -->
+        <div id="viewMode">
+            <h2>Name: {{ user[3] }} {{ user[4] }}</h2>
+            <h2>Username: {{ user[2] }}</h2>
+            <h2>Email: {{ user[1] }}</h2>
+
+            <button id="editBtn">Edit</button>
+            <a href="{{ url_for('logout') }}"><button>Logout</button></a>
+        </div>
+
+        <div id="formContainer"></div>
+
+    <!-- 👇 Make sure this appears before loading JS -->
+    <script>
+        const userData = {
+            fname: "{{ user[3] }}",
+            lname: "{{ user[4] }}",
+            username: "{{ user[2] }}"
+        };
+    </script>
+
+    <script src="{{ url_for('static', filename='account-scripts.js') }}"></script>
+    </body>    
 </html>
 
