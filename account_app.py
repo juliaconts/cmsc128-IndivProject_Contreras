@@ -107,7 +107,7 @@ def login():
             return redirect(url_for("login"))
 
         hashed_password = hash_password(password)
-        if user[5] != hashed_password:
+        if user[5] != password:
             # Wrong password
             flash("Incorrect password.", "error")
             return redirect(url_for("login"))
@@ -172,6 +172,54 @@ def logout():
 #     flash("Profile updated successfully!", "success")
 #     return redirect(url_for("profile"))
 
+@app.route("/recover", methods=["GET", "POST"])
+def recover():
+    message = None
+    error = None
+    reset_mode = False
+    email = None
+
+    if request.method == "POST":
+        action = request.form.get("action")
+
+        if action == "check_email":
+            email = request.form["email"]
+            conn = sqlite3.connect(DB_path)
+            cur = conn.cursor()
+            cur.execute("SELECT * FROM Accounts WHERE email = ?", (email,))
+            user = cur.fetchone()
+            conn.close()
+
+            if user:
+                reset_mode = True
+                message = f"Email verified: {email}. Please set a new password below."
+                # Store email in session for password reset
+                session['recover_email'] = email
+            else:
+                error = "No account found with that email."
+
+        elif action == "reset_password":
+            new_password = request.form["new_password"]
+            confirm_password = request.form["confirm_password"]
+            email = session.get('recover_email')
+
+            if not email:
+                error = "Session expired. Please verify your email again."
+            elif new_password != confirm_password:
+                error = "Passwords do not match."
+            else:
+                # Hash and update the password securely
+                hashed = hashlib.sha256(new_password.encode()).hexdigest()
+                conn = sqlite3.connect(DB_path)
+                cur = conn.cursor()
+                cur.execute("UPDATE Accounts SET password = ? WHERE email = ?", (hashed, email))
+                conn.commit()
+                conn.close()
+                session.pop('recover_email', None)
+                message = "Password successfully reset! You can now log in."
+                return redirect(url_for("login"))
+
+    return render_template("recover.html", message=message, error=error, reset_mode=reset_mode)
 
 if __name__ == "__main__":
     init_db()
