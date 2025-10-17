@@ -14,7 +14,7 @@
     </head>
 
     <body class="login">
-        <div class="page-container">
+        <div class="page-container-login">
             <div id="circle1-login"></div>
             <div id="circle2-login"></div>
             <div id="circle3-login"></div>
@@ -45,11 +45,10 @@
                         <button type="submit">Log In</button>
                     </div>
                 </form>
-                <p>Forgot you password? <a href="{{ url_for('recover') }}">Recover here.</a></p>
-                <p>Don't have an account? <a href="{{ url_for('signup') }}">Sign Up</a></p>
-                
+                                <p>Don't have an account? <a href="{{ url_for('signup') }}">Sign up here!</a></p>
+                <p>Forgot you password? <a href="{{ url_for('recover') }}">Recover it here.</a></p>
             </div>
-            <div id="name">
+            <div id="login-name">
                 <p id="title">TooDoo</p>
                 <p id="subtitle">Your favorite to-do list app!</p>
             </div>

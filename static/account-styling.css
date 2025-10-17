@@ -9,7 +9,37 @@
 
 /* Signup Page */
 .signup {
-    background-color: #80EF80;
+    background-color: white;
+}
+#circle1-signup {
+    z-index: 1;
+    position: fixed;
+    border-radius: 50%;
+    background-color: #77DFDF;
+    width: 70rem;
+    aspect-ratio: 1/1;
+    left: -13rem;
+    top: -17rem;
+}
+#circle2-signup {
+    z-index: 1;
+    position: fixed;
+    border-radius: 50%;
+    background-color: #A8F1F1;
+    width: 24rem;
+    aspect-ratio: 1/1;
+    left: 45rem;
+    top: -14rem;
+}
+#circle3-signup {
+    z-index: 1;
+    position: fixed;
+    border-radius: 50%;
+    background-color: #DFFDFD;
+    width: 11rem;
+    aspect-ratio: 1/1;
+    left: 62rem;
+    top: 2rem;
 }
 #header-signup {
     text-align: center;
@@ -20,33 +50,39 @@
     font-weight: bold;
     color: white;
 }
-
 .page-container-signup {
     margin: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
 }
 .signup-container {
+    z-index: 9;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    left: 5.5rem;
+    justify-content: center;
     width: 35%;
-    text-align: center;
+    height: 100%;
+    z-index: 9;
 }
-#container-title {
+#signup-container-title {
     font-size: 1.75rem;
     color: white;
     font-weight: bold;
     padding: .5rem 0;
-    background-color: #3AD33A;
-    border-radius: 25px 25px 0 0;
 }
 #signup-field {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: .5rem 3rem ;
-    background-color: #E0FEE0;
-    border-radius: 0 0 25px 25px;
     gap: .75rem;
+    width: 40rem;
+}
+#signup-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
 }
 .signup-elem {
     display: flex;
@@ -62,24 +98,43 @@
 } 
 #signup-field button {
     width: 35%;
-    background-color: #5AE35A;
+    background-color: #4FC7C7;
     padding: .6rem .45rem .6rem .45rem;
     border-radius: 25px;
     font-weight: bold;
 }
 #signup-field button:hover {
-    background-color: #80EF80;
+    background-color: #A8F1F1;
     cursor: pointer;
 }
 #signup-field a {
     all: unset;
     color: #2EA7A7;
     text-decoration: underline;
+    font-weight: bold;
 }
 #signup-field a:hover {
     color: #4FC7C7;
     cursor: pointer;
 }
+#signup-name {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: fixed;
+    justify-content: center;
+    right: 8.75rem;
+    color: #2EA7A7;
+    text-align: right;
+}
+#signup-title {
+    font-size: 3rem;
+    font-weight: bold;
+}
+#signup-subtitle {
+    font-size: 1.5rem;
+}
+
 
 /* Login Page */
 .login {
@@ -130,7 +185,7 @@
     display: flex;
     flex-direction: column;
 }
-#name {
+#login-name {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -185,6 +240,7 @@
     color: #2EA7A7;
     text-decoration: underline;
     cursor: pointer;
+    font-weight: bold;
 }
 #login-container a:hover {
     color: #77DFDF;
@@ -242,19 +298,54 @@
 .recovery {
     background-color: white;
 }
+#circle1-recovery {
+    z-index: 1;
+    position: fixed;
+    border-radius: 50%;
+    background-color: #A8F1F1;
+    width: 115rem;
+    aspect-ratio: 1/1;
+    top: -57rem;
+    left: -23rem;
+}
+#circle2-recovery {
+    z-index: 1;
+    position: fixed;
+    border-radius: 50%;
+    background-color: #77DFDF;
+    width: 64rem;
+    aspect-ratio: 1/1;
+    top: -27rem;
+    left: 19rem;
+}
+#circle3-recovery {
+    z-index: 1;
+    position: fixed;
+    border-radius: 50%;
+    background-color: #2EA7A7;
+    width: 20rem;
+    aspect-ratio: 1/1;
+    top: -12rem;
+    left: 30rem;
+}
 #header-recovery {
+    position: relative;
+    z-index: 9;
     text-align: center;
-    padding: .75rem 2.5rem;
+    padding: 1rem 2.5rem 1.15rem 2.5rem;
 }
 #header-recovery p{
     font-size: 3.5rem;
     font-weight: bold;
-    color: #80EF80;
+    color: white;
 }
 .page-container-recovery {
+    position: relative;
+    z-index: 9;
     margin: 0;
     display: flex;
     flex-direction: column;
+    text-align: center;
     align-items: center;
     width: 100%;
 }
@@ -264,10 +355,11 @@
 #recovery-title {
     font-size: 1.5rem;
     font-weight: bold;
+    color: white;
+    margin-top: 1rem;
 }
 .recovery-container {
     /* text-align: center; */
-    background-color: #80EF80;
     padding: .5rem 3rem;
     border-radius: 25px;
 }
@@ -282,21 +374,23 @@
     flex-direction: column;
     gap: .75rem;
     margin-bottom: .5rem;
+    align-items: center;
 }
 #recovery-field input {
     padding: 1rem;
     background-color: #f2f2f2;
     border-radius: 25px;
+    width: 75%;
 }
 #recovery-field button {
-    background-color: #D3FA86;
+    background-color: #2EA7A7;
     padding: .65rem;
     border-radius: 25px;
     font-weight: bold;
     width: 35%;
 }
 #recovery-field button:hover {
-    background-color: #C5F662;
+    background-color: #4FC7C7;
     cursor: pointer;
 }
 #remembered-pass {
@@ -309,6 +403,6 @@
     font-weight: bold;
 }
 #remembered-pass a:hover {
-    color: #77DFDF;
+    color: #4FC7C7;
     cursor: pointer;
 }

@@ -71,6 +71,7 @@ def signup():
         email = request.form["email"]
         username = request.form["username"]
         password = hash_password(request.form["password"])
+        confirm_password = request.form["confirm_password"]
         fname = request.form["fname"]
         lname = request.form["lname"]
 
@@ -82,10 +83,12 @@ def signup():
         if existing_user:
             flash("Username or email already exists.", "error")
             return redirect(url_for("signup"))
-        
-        cursor.execute("INSERT INTO Accounts (email, username, fname, lname, password) VALUES (?, ?, ?, ?, ?)",
-                       (email, username, fname, lname, password))
-        
+        elif password != confirm_password:
+            error = "Passwords do not match."
+            return render_template("signup.html", error = error)
+        else:
+            cursor.execute("INSERT INTO Accounts (email, username, fname, lname, password) VALUES (?, ?, ?, ?, ?)",
+                        (email, username, fname, lname, password))
         conn.commit()
         conn.close()
 

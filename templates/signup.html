@@ -15,44 +15,57 @@
     </head>
 
     <body class="signup">
-        <div id="header-signup">
-            <p>TooDoo</p>
-        </div>
-
         <div class="page-container-signup">
+            <div id="circle1-signup"></div>
+            <div id="circle2-signup"></div>
+            <div id="circle3-signup"></div>
             <div class="signup-container">
-                <p id="container-title">Create an Account</p>
+                <p id="signup-container-title">Create an Account</p>
                 <form method="POST">
                     <div id="signup-field">
-                        <div class="signup-elem">
-                            <label for="fname">First Name</label>
-                            <input type="text" placeholder="Enter First Name" name="fname" required>
-                        </div>
+                        <div id="signup-row">
+                            <div class="signup-elem">
+                                <label for="fname">First Name</label>
+                                <input type="text" placeholder="Please enter your first name" name="fname" required>
+                            </div>
 
-                        <div class="signup-elem">
-                            <label for="lname">Last Name</label>
-                            <input type="text" placeholder="Enter Last Name" name="lname" required>
+                            <div class="signup-elem">
+                                <label for="lname">Last Name</label>
+                                <input type="text" placeholder="Please enter your last name" name="lname" required>
+                            </div>
                         </div>
-
-                        <div class="signup-elem">
-                            <label for="username">Username</label>
-                            <input type="text" placeholder="Enter Username" name="username" required>
+                        <div id="signup-row">
+                            <div class="signup-elem">
+                                <label for="username">Username</label>
+                                <input type="text" placeholder="Please enter your username" name="username" required>
+                            </div>
+                            
+                            <div class="signup-elem">
+                                <label for="email">Email</label>
+                                <input type="email" placeholder="Please enter your email" name="email" required>
+                            </div>
                         </div>
-                        
-                        <div class="signup-elem">
-                            <label for="email">Email</label>
-                            <input type="email" placeholder="Enter Email" name="email" required>
+                        <div id="signup-row">
+                            <div class="signup-elem">
+                                <label for="password">Password</label>
+                                <input type="password" placeholder="Please enter your password" name="password" required>
+                            </div>
+                            <div class="signup-elem">
+                                <label for="password">Confirm Password</label>
+                                <input type="password" placeholder="Please confirm your password" name="confirm_password" required>
+                            </div>
                         </div>
-
-                        <div class="signup-elem">
-                            <label for="password">Password</label>
-                            <input type="password" placeholder="Create Password" name="password" required>
-                        </div>
+                        {% if error %}
+                            <p>{{ error }}</p>
+                        {% endif %}                        
                         <button type="submit">Sign Up</button>
                         <p>Already have an account? <a href="{{ url_for('login') }}">Log In</a></p>
                     </div>
                 </form>
-                
+                <div id="signup-name">
+                    <p id="signup-title">Register now!</p>
+                    <p id="signup-subtitle">Never miss a task with TooDoo.</p>
+                </div>
             </div>
             
         </div>
