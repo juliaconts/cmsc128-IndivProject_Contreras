@@ -33,29 +33,31 @@
 
                 <!-- View Mode -->
                 <div id="viewMode">
-                    <div id="account-name">
+                    <div class="account-view">
                         <p class="account-head">Name</p>
                         <p class="account-shown">{{ user[3] }} {{ user[4] }}</p>
                     </div>
                     
-                    <div id="account-username">
+                    <div class="account-view">
                         <p class="account-head">Username</p>
                         <p class="account-shown">{{ user[2] }}</p>
                     </div>
 
-                    <div id="account-email">
+                    <div class="account-view">
                         <p class="account-head">Email</p>
                         <p class="account-shown">{{ user[1] }}</p>
                     </div>
+
+                    <div id="account-buttons">
+                        <a href="{{ url_for('edit', id=user[0]) }}"></a><button id="editBtn">Edit Profile</button>
+                        <a href="{{ url_for('logout') }}"><button>Logout</button></a>
+                    </div>    
             </div>
+            <div id="formContainer"></div>
         </div>
-        <div id="account-buttons">
-            <button id="editBtn">Edit Profile</button>
-            <a href="{{ url_for('logout') }}"><button>Logout</button></a>
-        </div>    
+        
     </div>
 
-    <!-- 👇 Make sure this appears before loading JS -->
     <script>
         const userData = {
             fname: "{{ user[3] }}",

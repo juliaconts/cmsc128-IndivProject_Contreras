@@ -22,17 +22,26 @@ document.addEventListener("DOMContentLoaded", () => {
       // Build the form dynamically
       const formHTML = `
         <form id="editForm" method="POST" action="/profile">
+        <div class="edit-rows">
           <label>First Name:</label>
           <input type="text" name="fname" value="${userData.fname}" required>
-
+        </div>
+          
+        <div class="edit-rows">
           <label>Last Name:</label>
           <input type="text" name="lname" value="${userData.lname}" required>
-
+        </div>
+          
+        <div class="edit-rows">
           <label>Username:</label>
           <input type="text" name="username" value="${userData.username}" required>
-
+        </div>
+          
+        <div class="edit-rows">
           <label>New Password (leave blank to keep current):</label>
           <input type="password" name="password">
+        </div>
+
 
           <div style="margin-top:10px;">
             <button type="submit">Save Changes</button>

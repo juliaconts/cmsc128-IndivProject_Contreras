@@ -271,12 +271,47 @@
     flex-direction: column;
     gap: .5rem;
 }
+.account-view {
+    margin-left: 1rem;
+}
 .account-head {
     font-size: 1.5rem;
 }
 .account-shown {
     font-size: 2rem;
 }
+/* Edit Profile */
+.edit-rows {
+    display: flex;
+    flex-direction: column;
+}
+#editForm {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+#editForm label {
+    font-size: .75rem;
+    margin-left: .5rem;
+}
+#editForm input {
+    background-color: rgb(235, 235, 235);
+    width: 40%;
+    border-radius: 25px;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+}
+#editForm button {
+    background-color: #4FC7C7;
+    padding: .65rem 1rem;
+    border-radius: 25px;
+    font-size: 1rem;
+}
+#editForm button:hover {
+    background-color: #A8F1F1;
+    cursor: pointer;
+}
+/* End of Edit Form */
 #account-buttons {
     display: flex;
     flex-direction: row;
@@ -406,3 +441,4 @@
     color: #4FC7C7;
     cursor: pointer;
 }
+

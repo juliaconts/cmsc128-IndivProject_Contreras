@@ -164,16 +164,16 @@ def logout():
     flash("You have been logged out.", "info")
     return redirect(url_for("login"))
 
-# @app.route('/edit/<int:id>', methods=['POST'])
-# def edit(id):
-#     username = request.form.get("username", "").strip()
-#     fname = request.form.get("fname", "").strip()
-#     lname = request.form.get("lname", "").strip()
-#     password = request.form.get("password", "").strip()
+@app.route('/edit/<int:id>', methods=['GET'])
+def edit(id):
+    username = request.form.get("username", "").strip()
+    fname = request.form.get("fname", "").strip()
+    lname = request.form.get("lname", "").strip()
+    password = request.form.get("password", "").strip()
 
-#     edit_profile(id, username, fname, lname, password)
-#     flash("Profile updated successfully!", "success")
-#     return redirect(url_for("profile"))
+    edit_profile(id, username, fname, lname, password)
+    flash("Profile updated successfully!", "success")
+    return redirect(url_for("profile"))
 
 @app.route("/recover", methods=["GET", "POST"])
 def recover():
