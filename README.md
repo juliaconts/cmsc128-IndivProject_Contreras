@@ -1,6 +1,6 @@
-Name: Julia Louise M. Contreras
+Name: Julia Louise M. Contreras & Julo A. Bretaña
 Laboratory Activity 1
-CMSC 124 - 1 
+CMSC 128 - 1 
 
 Fullstack To-do List Web Application
 
