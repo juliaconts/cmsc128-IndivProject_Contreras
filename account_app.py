@@ -192,11 +192,10 @@ def recover():
 
             if user:
                 reset_mode = True
-                message = f"Email verified: {email}. Please set a new password below."
-                # Store email in session for password reset
+                message = f"Email verified: {email}."
                 session['recover_email'] = email
             else:
-                error = "No account found with that email."
+                error = "No account found with that email. Please try again."
 
         elif action == "reset_password":
             new_password = request.form["new_password"]

@@ -122,7 +122,7 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    right: 19.5rem;
+    right: 17.5rem;
     justify-content: center;
     height: 100%;
 }
@@ -142,6 +142,7 @@
 #title{ 
     font-size: 7.5rem;
     height: 8.5rem;
+    font-weight: bold;
 }
 #subtitle {
     text-align: right;
@@ -150,7 +151,6 @@
 #login-text {
     padding-left: .6rem;
     font-size: 2.5rem;
-    margin-bottom: .75rem;
 }
 #login-field {
     display: flex;
@@ -235,5 +235,80 @@
 }
 #account-buttons button:hover {
     background-color: #A8F1F1;
+    cursor: pointer;
+}
+
+/* Recover Page */
+.recovery {
+    background-color: white;
+}
+#header-recovery {
+    text-align: center;
+    padding: .75rem 2.5rem;
+}
+#header-recovery p{
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #80EF80;
+}
+.page-container-recovery {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+#recovery-title, .recovery-container {
+    width: 30% ;
+}
+#recovery-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.recovery-container {
+    /* text-align: center; */
+    background-color: #80EF80;
+    padding: .5rem 3rem;
+    border-radius: 25px;
+}
+#recovery-message {
+    margin: .5rem 0;
+}
+#recovery-subtitle {
+    margin-bottom: .25rem;
+}
+#recovery-field {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    margin-bottom: .5rem;
+}
+#recovery-field input {
+    padding: 1rem;
+    background-color: #f2f2f2;
+    border-radius: 25px;
+}
+#recovery-field button {
+    background-color: #D3FA86;
+    padding: .65rem;
+    border-radius: 25px;
+    font-weight: bold;
+    width: 35%;
+}
+#recovery-field button:hover {
+    background-color: #C5F662;
+    cursor: pointer;
+}
+#remembered-pass {
+    width: 35%;
+}
+#remembered-pass a {
+    all: unset;
+    color: #2EA7A7;
+    text-decoration: underline;
+    font-weight: bold;
+}
+#remembered-pass a:hover {
+    color: #77DFDF;
     cursor: pointer;
 }
