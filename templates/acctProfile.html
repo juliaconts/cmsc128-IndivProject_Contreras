@@ -19,32 +19,36 @@
             <p>TooDoo</p>
         </div>
         <div class="page-container-account">
-            <h1>Profile</h1>
-            <div id="profile-container">
-                {% with messages = get_flashed_messages(with_categories=true) %}
+            <h1>Account Profile</h1>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
-                    <ul id="flash-messages" style="list-style:none;">
-                        {% for category, message in messages|unique %}
-                            <li data-category="{{ category }}">{{ message }}</li>
-                        {% endfor %}
-                    </ul>
+                    <div id="flash-container">
+                        <ul id="flash-messages">
+                            {% for category, message in messages|unique %}
+                                <li data-category="{{ category }}">{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 {% endif %}
-                {% endwith %}
+            {% endwith %}
+
+            <div id="profile-container">
 
                 <!-- View Mode -->
                 <div id="viewMode">
                     <div class="account-view">
-                        <p class="account-head">Name</p>
+                        <p class="account-head">Name:</p>
                         <p class="account-shown">{{ user[3] }} {{ user[4] }}</p>
                     </div>
                     
                     <div class="account-view">
-                        <p class="account-head">Username</p>
+                        <p class="account-head">Username:</p>
                         <p class="account-shown">{{ user[2] }}</p>
                     </div>
 
                     <div class="account-view">
-                        <p class="account-head">Email</p>
+                        <p class="account-head">Email:</p>
                         <p class="account-shown">{{ user[1] }}</p>
                     </div>
 

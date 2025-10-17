@@ -181,6 +181,10 @@
     justify-content: center;
     height: 100%;
 }
+#login-container p {
+    margin-top: 0.5rem;
+    margin-left: 0.25rem;
+}
 #login-field {
     display: flex;
     flex-direction: column;
@@ -205,6 +209,7 @@
 }
 #login-text {
     padding-left: .6rem;
+    margin-bottom: 5%;
     font-size: 2.5rem;
 }
 #login-field {
@@ -275,9 +280,11 @@
     margin-left: 1rem;
 }
 .account-head {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
 }
 .account-shown {
+    margin-bottom: 1%;
     font-size: 2rem;
 }
 /* Edit Profile */
@@ -442,3 +449,28 @@
     cursor: pointer;
 }
 
+/* Flash Messages */
+#flash-container {
+  position: fixed;
+  bottom: 20px;          /* distance from bottom */
+  right: 20px;           /* distance from right edge */
+  z-index: 1000;         /* make sure it appears above other content */
+}
+
+#flash-messages {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#flash-messages li {
+  background-color: #333;   /* dark box */
+  color: white;
+  padding: 12px 18px;
+  border-radius: 8px;
+  margin-top: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  opacity: 0.9;
+  font-family: sans-serif;
+  animation: fadeInOut 4s ease forwards;
+}

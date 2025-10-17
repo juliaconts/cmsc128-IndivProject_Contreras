@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
       flashMessages.style.transition = "opacity 0.5s ease";
       flashMessages.style.opacity = "0";
       setTimeout(() => flashMessages.remove(), 500);
-    }, 3000);
+    }, 1000);
   }
 
   // Create the Edit form dynamically when "Edit" is clicked

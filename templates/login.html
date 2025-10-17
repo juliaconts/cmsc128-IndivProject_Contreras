@@ -20,16 +20,19 @@
             <div id="circle3-login"></div>
             <div id="login-container">
                 <p id="login-text">Let's get to work!</p>
+
                 <!-- Flash messages -->
                 {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
-                    <ul style="list-style:none; padding:0;">
-                        {% for category, message in messages %}
-                        <li>
-                            {{ message }}
-                        </li>
-                        {% endfor %}
-                    </ul>
+                        <div id="flash-container">
+                            <ul id="flash-messages" style="list-style:none; padding:0;">
+                                {% for category, message in messages %}
+                                    <li>
+                                        {{ message }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     {% endif %}
                 {% endwith %}
 

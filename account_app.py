@@ -70,7 +70,8 @@ def signup():
     if request.method == "POST":
         email = request.form["email"]
         username = request.form["username"]
-        password = hash_password(request.form["password"])
+        password = request.form["password"]
+        hashed_password = hash_password(request.form["password"]) 
         confirm_password = request.form["confirm_password"]
         fname = request.form["fname"]
         lname = request.form["lname"]
@@ -88,7 +89,7 @@ def signup():
             return render_template("signup.html", error = error)
         else:
             cursor.execute("INSERT INTO Accounts (email, username, fname, lname, password) VALUES (?, ?, ?, ?, ?)",
-                        (email, username, fname, lname, password))
+                        (email, username, fname, lname, hashed_password))
         conn.commit()
         conn.close()
 
@@ -109,7 +110,7 @@ def login():
             flash("No account found with that email.", "error")
             return redirect(url_for("login"))
 
-        hashed_password = hash_password(password)
+        # hashed_password = hash_password(password)
         if user[5] != password:
             # Wrong password
             flash("Incorrect password.", "error")
@@ -161,7 +162,7 @@ def profile():
 def logout():
     get_flashed_messages()
     session.clear()
-    flash("You have been logged out.", "info")
+    # flash("You have been logged out.", "info")
     return redirect(url_for("login"))
 
 @app.route('/edit/<int:id>', methods=['GET'])
